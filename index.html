@@ -1,332 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Space</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Space</title>
+<style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+    body {background:#0f172a;color:#e2e8f0;scroll-behavior:smooth;overflow-x:hidden;}
     
-        body {
-            background: #0f172a;
-            color: #e2e8f0;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+    /* Header */
+    header {
+        position: fixed; top:0; left:0; width:100%; padding:15px 30px;
+        display:flex; justify-content:space-between; align-items:center;
+        background:rgba(15,23,42,0.9); border-bottom:1px solid #1e293b; z-index:100;
+        backdrop-filter:blur(8px); flex-wrap:wrap;
+    }
+    .header-left h1 {font-size:22px;color:#38bdf8;}
+    .header-left p {font-size:12px;color:#94a3b8;margin-top:4px;}
+    nav {display:flex; flex-wrap:wrap;}
+    nav a {margin:4px 8px;text-decoration:none;color:#e2e8f0;font-weight:500;transition:0.3s;}
+    nav a:hover {color:#38bdf8;}
     
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom: 1px solid #1e293b;
-            z-index: 100;
-            backdrop-filter: blur(8px);
-            flex-wrap: wrap;
-        }
+    /* Hamburger */
+    .hamburger {display:none;flex-direction:column;justify-content:space-between;width:25px;height:20px;cursor:pointer;}
+    .hamburger span {display:block;height:3px;background:#38bdf8;border-radius:2px;}
+    .hamburger.open span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
+    .hamburger.open span:nth-child(2) {opacity:0;}
+    .hamburger.open span:nth-child(3) {transform:rotate(-45deg) translate(5px,-5px);}
     
-        header h1 {
-            font-size: 22px;
-            color: #38bdf8;
-        }
+    /* Sections */
+    section {min-height:100vh;padding:120px 20px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;transform:translateY(40px);transition:all 1s ease;}
+    section.show {opacity:1;transform:translateY(0);}
+    .home img {width:165px;max-width:40vw;aspect-ratio:1/1;object-fit:cover;border-radius:50%;border:4px solid #38bdf8;margin-bottom:20px;box-shadow:0 0 20px rgba(56,189,248,0.5);animation:float 4s ease-in-out infinite;}
+    @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+    h2 {font-size:2.2rem;margin-bottom:15px;color:#38bdf8;}
+    p {max-width:700px;line-height:1.7;margin-bottom:20px;font-size:1.1rem;}
     
-        header p {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
+    .btn {padding:12px 24px;margin-top:8px;border:none;border-radius:8px;background:#38bdf8;color:#0f172a;font-weight:bold;cursor:pointer;transition:0.3s;}
+    .btn:hover {background:#0ea5e9;box-shadow:0 0 15px rgba(14,165,233,0.7);transform:translateY(-2px);}
     
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
+    .hobi-cards,.daily-cards,.learning-cards {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px;width:100%;max-width:900px;}
+    .card {background:#1e293b;padding:20px;border-radius:12px;transition:0.4s;text-align:center;border:1px solid #334155;}
+    .card:hover {transform:translateY(-8px) scale(1.03);border-color:#38bdf8;box-shadow:0 0 20px rgba(56,189,248,0.4);}
+    .card img {width:80px;max-width:50%;height:auto;object-fit:contain;margin-bottom:12px;}
     
-        nav a {
-            margin: 4px 8px;
-            text-decoration: none;
-            color: #e2e8f0;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+    footer {padding:20px;text-align:center;font-size:14px;background:#1e293b;border-top:1px solid #334155;color:#94a3b8;}
     
-        nav a:hover {
-            color: #38bdf8;
-        }
+    .parallax {background-attachment: fixed; background-size: cover; background-position: center;}
     
-        section {
-            min-height: 100vh;
-            padding: 120px 20px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s ease;
-        }
-    
-        section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    
-        .home img {
-            width: 165px;
-            max-width: 40vw;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #38bdf8;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-            animation: float 4s ease-in-out infinite;
-        }
-    
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-    
-        h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: #38bdf8;
-        }
-    
-        p {
-            max-width: 700px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-    
-        .btn {
-            padding: 12px 24px;
-            margin-top: 8px;
-            border: none;
-            border-radius: 8px;
-            background: #38bdf8;
-            color: #0f172a;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-    
-        .btn:hover {
-            background: #0ea5e9;
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.7);
-            transform: translateY(-2px);
-        }
-    
-        .hobi-cards,
-        .daily-cards,
-        .learning-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
-    
-        .card {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 12px;
-            transition: 0.4s;
-            text-align: center;
-            border: 1px solid #334155;
-        }
-    
-        .card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-        }
-    
-        .card img {
-            width: 80px;
-            max-width: 50%;
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 12px;
-        }
-    
-        footer {
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-            background: #1e293b;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-        }
-    
-        .parallax {
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-    
-        /* Responsive tweaks */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px;
-            }
-            header p { font-size: 11px; }
-            nav { justify-content: flex-start; }
-            section { padding: 100px 15px 30px; }
-            h2 { font-size: 1.8rem; }
-            p { font-size: 1rem; }
-            .home img { width: 130px; max-width: 50vw; }
-        }
-    
-        @media (max-width: 480px) {
-            h2 { font-size: 1.5rem; }
-            p { font-size: 0.95rem; }
-            .btn { padding: 10px 20px; font-size: 0.95rem; }
-            .home img { width: 110px; max-width: 60vw; }
-        }
-    </style>
-    
+    /* Responsive */
+    @media(max-width:768px){
+        header {flex-direction:column;align-items:flex-start;padding:15px;}
+        .header-left p{font-size:11px;}
+        nav{justify-content:flex-start; display:none; flex-direction:column;width:100%;margin-top:10px;}
+        nav a{margin:8px 0;}
+        .hamburger{display:flex;}
+        section{padding:100px 15px 30px;}
+        h2{font-size:1.8rem;}
+        p{font-size:1rem;}
+        .home img{width:130px;max-width:50vw;}
+    }
+    @media(max-width:480px){
+        h2{font-size:1.5rem;}
+        p{font-size:0.95rem;}
+        .btn{padding:10px 20px;font-size:0.95rem;}
+        .home img{width:110px;max-width:60vw;}
+    }
+</style>
 </head>
-
 <body>
-    <header>
-        <div>
-            <h1>My Space</h1>
-            <p>Not a portfolio — just my personal space to share hobbies, daily life, and things I love exploring.</p>
-        </div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#hobbies">Hobbies</a>
-            <a href="#daily">Daily Life</a>
-            <a href="#learning">Currently Learning</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
-    <section id="home" class="home parallax" style="
+<header>
+    <div class="header-left">
+        <h1>My Space</h1>
+        <p>Not a portfolio — just my personal space to share hobbies, daily life, and things I love exploring.</p>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <nav id="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#daily">Daily Life</a>
+        <a href="#learning">Currently Learning</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="home" class="home parallax" style="
     background-image: linear-gradient(rgba(15,23,42,0.7), rgba(15,23,42,0.7)),
                       url('https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=1470&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 ">
-        <img src="zoe.jpeg" alt="Profile Photo">
-        <h2>Hello, I’m Farid Rizky Fauzan</h2>
-        <p>Welcome to my personal space! A place where I share my interests, activities, and a little bit of my journey.
-        </p>
-        <button class="btn" onclick="alert('Hey Bro! 👊')">Say Hi</button>
-    </section>
+    <img src="zoe.jpeg" alt="Profile Photo">
+    <h2>Hello, I’m Farid Rizky Fauzan</h2>
+    <p>Welcome to my personal space! A place where I share my interests, activities, and a little bit of my journey.</p>
+    <button class="btn" onclick="alert('Hey Bro! 👊')">Say Hi</button>
+</section>
 
+<section id="about">
+    <h2>About Me</h2>
+    <p>I am an Informatics student who loves exploring technology, esports, cybersecurity, and blockchain/Web3. I enjoy learning, experimenting, and sharing knowledge with others.</p>
+</section>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am an Informatics student who loves exploring technology, esports, cybersecurity, and blockchain/Web3.
-            I enjoy learning, experimenting, and sharing knowledge with others.</p>
-    </section>
-
-    <section id="hobbies">
-        <h2>Hobbies & Interests</h2>
-        <div class="hobi-cards">
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Esports">
-                <h3>Esports</h3>
-                <p>Playing Mobile Legends & joining offline tournaments.</p>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Books">
-                <h3>Reading</h3>
-                <p>Books on technology, finance, and motivation.</p>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/2721/2721305.png" alt="Cybersecurity">
-                <h3>Cybersecurity</h3>
-                <p>Learning Linux & penetration testing.</p>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/2885/2885289.png" alt="Web3">
-                <h3>Web3 Explorer</h3>
-                <p>Exploring blockchain, smart contracts, and decentralized apps.</p>
-            </div>
+<section id="hobbies">
+    <h2>Hobbies & Interests</h2>
+    <div class="hobi-cards">
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Esports">
+            <h3>Esports</h3>
+            <p>Playing Mobile Legends & joining offline tournaments.</p>
         </div>
-    </section>
-
-    <section id="daily">
-        <h2>Daily Life & Notes</h2>
-        <div class="daily-cards">
-            <div class="card">
-                <h3>Morning Routine</h3>
-                <p>Workout, breakfast, and planning the day ahead.</p>
-            </div>
-            <div class="card">
-                <h3>Learning Time</h3>
-                <p>Reading books, exploring Linux, Web3, or cybersecurity topics.</p>
-            </div>
-            <div class="card">
-                <h3>Gaming / Relax</h3>
-                <p>Playing games or watching esports streams to unwind.</p>
-            </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Books">
+            <h3>Reading</h3>
+            <p>Books on technology, finance, and motivation.</p>
         </div>
-    </section>
-
-    <section id="learning">
-        <h2>Currently Learning / Exploring</h2>
-        <div class="learning-cards">
-            <div class="card">
-                <h3>Web3 Development</h3>
-                <p>Experimenting with smart contracts and dApps on blockchain.</p>
-            </div>
-            <div class="card">
-                <h3>Cybersecurity</h3>
-                <p>Practicing Linux commands, pentesting labs, and ethical hacking.</p>
-            </div>
-            <div class="card">
-                <h3>Forex / Market Study</h3>
-                <p>Analyzing charts, understanding risk, and tracking trends.</p>
-            </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2721/2721305.png" alt="Cybersecurity">
+            <h3>Cybersecurity</h3>
+            <p>Learning Linux & penetration testing.</p>
         </div>
-    </section>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2885/2885289.png" alt="Web3">
+            <h3>Web3 Explorer</h3>
+            <p>Exploring blockchain, smart contracts, and decentralized apps.</p>
+        </div>
+    </div>
+</section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Let’s connect through my social media or email:</p>
-        <button class="btn" onclick="window.open('https://www.instagram.com/zoeeznn/', '_blank')">Instagram</button>
-        <button class="btn" onclick="window.open('mailto:faridfauzan31@gmail.com')">Email</button>
-    </section>
+<section id="daily">
+    <h2>Daily Life & Notes</h2>
+    <div class="daily-cards">
+        <div class="card"><h3>Morning Routine</h3><p>Workout, breakfast, and planning the day ahead.</p></div>
+        <div class="card"><h3>Learning Time</h3><p>Reading books, exploring Linux, Web3, or cybersecurity topics.</p></div>
+        <div class="card"><h3>Gaming / Relax</h3><p>Playing games or watching esports streams to unwind.</p></div>
+    </div>
+</section>
 
-    <footer>
-        © 2025 Farid Rizky Fauzan. All Rights Reserved.
-    </footer>
+<section id="learning">
+    <h2>Currently Learning / Exploring</h2>
+    <div class="learning-cards">
+        <div class="card"><h3>Web3 Development</h3><p>Experimenting with smart contracts and dApps on blockchain.</p></div>
+        <div class="card"><h3>Cybersecurity</h3><p>Practicing Linux commands, pentesting labs, and ethical hacking.</p></div>
+        <div class="card"><h3>Forex / Market Study</h3><p>Analyzing charts, understanding risk, and tracking trends.</p></div>
+    </div>
+</section>
 
-    <script>
-        // Scroll fade-in animation
-        const sections = document.querySelectorAll("section");
-        window.addEventListener("scroll", () => {
-            sections.forEach(sec => {
-                const rect = sec.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    sec.classList.add("show");
-                }
-            });
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Let’s connect through my social media or email:</p>
+    <button class="btn" onclick="window.open('https://www.instagram.com/zoeeznn/', '_blank')">Instagram</button>
+    <button class="btn" onclick="window.open('mailto:faridfauzan31@gmail.com')">Email</button>
+</section>
+
+<footer>© 2025 Farid Rizky Fauzan. All Rights Reserved.</footer>
+
+<script>
+    // Scroll fade-in animation
+    const sections = document.querySelectorAll("section");
+    window.addEventListener("scroll", () => {
+        sections.forEach(sec => {
+            const rect = sec.getBoundingClientRect();
+            if(rect.top < window.innerHeight-100) sec.classList.add("show");
         });
-    </script>
-</body>
+    });
 
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('open');
+    });
+</script>
+
+</body>
 </html>
