@@ -53,6 +53,7 @@
         header {flex-direction:column;align-items:flex-start;padding:15px;}
         .header-left p{font-size:11px;}
         nav{justify-content:flex-start; display:none; flex-direction:column;width:100%;margin-top:10px;}
+        nav.active{display:flex;} /* <- tampilkan nav saat hamburger diklik */
         nav a{margin:8px 0;}
         .hamburger{display:flex;}
         section{padding:100px 15px 30px;}
@@ -104,26 +105,10 @@
 <section id="hobbies">
     <h2>Hobbies & Interests</h2>
     <div class="hobi-cards">
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Esports">
-            <h3>Esports</h3>
-            <p>Playing Mobile Legends & joining offline tournaments.</p>
-        </div>
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Books">
-            <h3>Reading</h3>
-            <p>Books on technology, finance, and motivation.</p>
-        </div>
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/2721/2721305.png" alt="Cybersecurity">
-            <h3>Cybersecurity</h3>
-            <p>Learning Linux & penetration testing.</p>
-        </div>
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/2885/2885289.png" alt="Web3">
-            <h3>Web3 Explorer</h3>
-            <p>Exploring blockchain, smart contracts, and decentralized apps.</p>
-        </div>
+        <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Esports"><h3>Esports</h3><p>Playing Mobile Legends & joining offline tournaments.</p></div>
+        <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Books"><h3>Reading</h3><p>Books on technology, finance, and motivation.</p></div>
+        <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/2721/2721305.png" alt="Cybersecurity"><h3>Cybersecurity</h3><p>Learning Linux & penetration testing.</p></div>
+        <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/2885/2885289.png" alt="Web3"><h3>Web3 Explorer</h3><p>Exploring blockchain, smart contracts, and decentralized apps.</p></div>
     </div>
 </section>
 
@@ -164,14 +149,15 @@
         });
     });
 
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
+       // Hamburger toggle
+       const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
+
     hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('open');
+        hamburger.classList.toggle('open'); // animasi X
+        navLinks.classList.toggle('active'); // tampilkan / sembunyikan nav
     });
 </script>
-
 </body>
 </html>
+
