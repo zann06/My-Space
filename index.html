@@ -12,14 +12,14 @@
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
         }
-
+    
         body {
             background: #0f172a;
             color: #e2e8f0;
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
-
+    
         header {
             position: fixed;
             top: 0;
@@ -33,34 +33,41 @@
             border-bottom: 1px solid #1e293b;
             z-index: 100;
             backdrop-filter: blur(8px);
+            flex-wrap: wrap;
         }
-
+    
         header h1 {
             font-size: 22px;
             color: #38bdf8;
         }
-
+    
         header p {
-            font-size: 14px;
+            font-size: 12px;
             color: #94a3b8;
             margin-top: 4px;
         }
-
+    
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+    
         nav a {
-            margin: 0 12px;
+            margin: 4px 8px;
             text-decoration: none;
             color: #e2e8f0;
             font-weight: 500;
             transition: 0.3s;
         }
-
+    
         nav a:hover {
             color: #38bdf8;
         }
-
+    
         section {
             min-height: 100vh;
-            padding: 100px 20px 40px;
+            padding: 120px 20px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -70,14 +77,15 @@
             transform: translateY(40px);
             transition: all 1s ease;
         }
-
+    
         section.show {
             opacity: 1;
             transform: translateY(0);
         }
-
+    
         .home img {
             width: 165px;
+            max-width: 40vw;
             aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 50%;
@@ -86,32 +94,25 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
             animation: float 4s ease-in-out infinite;
         }
-
+    
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
-
+    
         h2 {
             font-size: 2.2rem;
             margin-bottom: 15px;
             color: #38bdf8;
         }
-
+    
         p {
             max-width: 700px;
             line-height: 1.7;
             margin-bottom: 20px;
             font-size: 1.1rem;
         }
-
+    
         .btn {
             padding: 12px 24px;
             margin-top: 8px;
@@ -123,13 +124,13 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
+    
         .btn:hover {
             background: #0ea5e9;
             box-shadow: 0 0 15px rgba(14, 165, 233, 0.7);
             transform: translateY(-2px);
         }
-
+    
         .hobi-cards,
         .daily-cards,
         .learning-cards {
@@ -140,7 +141,7 @@
             width: 100%;
             max-width: 900px;
         }
-
+    
         .card {
             background: #1e293b;
             padding: 20px;
@@ -149,20 +150,21 @@
             text-align: center;
             border: 1px solid #334155;
         }
-
+    
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             border-color: #38bdf8;
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
         }
-
+    
         .card img {
             width: 80px;
-            height: 80px;
+            max-width: 50%;
+            height: auto;
             object-fit: contain;
             margin-bottom: 12px;
         }
-
+    
         footer {
             padding: 20px;
             text-align: center;
@@ -171,13 +173,36 @@
             border-top: 1px solid #334155;
             color: #94a3b8;
         }
-
+    
         .parallax {
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
         }
+    
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+            header p { font-size: 11px; }
+            nav { justify-content: flex-start; }
+            section { padding: 100px 15px 30px; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 1rem; }
+            .home img { width: 130px; max-width: 50vw; }
+        }
+    
+        @media (max-width: 480px) {
+            h2 { font-size: 1.5rem; }
+            p { font-size: 0.95rem; }
+            .btn { padding: 10px 20px; font-size: 0.95rem; }
+            .home img { width: 110px; max-width: 60vw; }
+        }
     </style>
+    
 </head>
 
 <body>
